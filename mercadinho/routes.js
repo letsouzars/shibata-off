@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -29,7 +30,11 @@ const Stack = createStackNavigator();
 const CategoriasStack = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Categorias" component={Categorias}options={{ headerShown: false }} />
+      
+     <Stack.Screen name="index" component={Acesso} options={{ headerShown: false }} />
+      <Stack.Screen name="entrada" component={Bem_Vindo} options={{ headerShown: false }} />
+      <Stack.Screen name="cadastro" component={Cadastro} options={{ headerShown: false }} />
+      <Stack.Screen name="Categorias" component={Categorias} />
       <Stack.Screen name="Padaria" component={Padaria} />
       <Stack.Screen name="Carnes" component={Carnes} />
       <Stack.Screen name="Mercearia" component={Mercearia} />
@@ -42,44 +47,19 @@ const CategoriasStack = () => {
       <Stack.Screen name="Hortifruti" component={Hortifruti} />
       <Stack.Screen name="Bomboniere" component={Bomboniere} />
       <Stack.Screen name="Pagamento" component={Pagamento} />
+
     </Stack.Navigator>
+
   );
 };
 
 const CarrinhoStack = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Carrinho" component={Carrinho} options={{ headerShown: false }}/>
+      <Stack.Screen name="Carrinho" component={Carrinho} />
       <Stack.Screen name="Pagamento" component={Pagamento} options={{ headerShown: false }} />
+
     </Stack.Navigator>
-  );
-};
-
-const MainTabs = () => {
-  return (
-    <Tab.Navigator
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color, size }) => {
-          let iconName;
-
-          if (route.name === 'Home') {
-            iconName = focused ? 'home' : 'home-outline';
-          } else if (route.name === 'Categorias') {
-            iconName = focused ? 'list' : 'list-outline';
-          } else if (route.name === 'Carrinho') {
-            iconName = focused ? 'cart' : 'cart-outline';
-          }
-
-          return <Icon name={iconName} size={size} color={color} />;
-        },
-        tabBarActiveTintColor: '#034EA1',
-        tabBarInactiveTintColor: 'gray',
-      })}
-    >
-      <Tab.Screen name="Home" component={Home} options={{ headerShown: false }} />
-      <Tab.Screen name="Categorias" component={CategoriasStack} options={{ headerShown: false }} />
-      <Tab.Screen name="Carrinho" component={CarrinhoStack} options={{ headerShown: false }} />
-    </Tab.Navigator>
   );
 };
 
@@ -87,12 +67,43 @@ const App = () => {
   return (
     <CartProvider>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Bem_Vindo">
-          <Stack.Screen name="Bem_Vindo" component={Bem_Vindo} options={{ headerShown: false }} />
-          <Stack.Screen name="Acesso" component={Acesso} options={{ headerShown: false }} />
-          <Stack.Screen name="Cadastro" component={Cadastro} options={{ headerShown: false }} />
-          <Stack.Screen name="MainTabs" component={MainTabs} options={{ headerShown: false }} />
-        </Stack.Navigator>
+        <Tab.Navigator
+          screenOptions={({ route }) => ({
+            tabBarIcon: ({ focused, color, size }) => {
+              let iconName;
+
+              if (route.name === 'Home') {
+                iconName = focused ? 'home' : 'home-outline';
+              } else if (route.name === 'Categorias') {
+                iconName = focused ? 'list' : 'list-outline';
+              } else if (route.name === 'Carrinho') {
+                iconName = focused ? 'cart' : 'cart-outline';
+              }
+
+              return <Icon name={iconName} size={size} color={color} />;
+            },
+            tabBarActiveTintColor: '#034EA1',
+            tabBarInactiveTintColor: 'gray',
+          })}
+        >
+          <Tab.Screen
+            name="Home"
+            component={Home}
+            options={{ headerShown: false }}
+          />
+          <Tab.Screen
+            name="Categorias"
+            component={CategoriasStack}
+            options={{ headerShown: false }}
+          />
+          <Tab.Screen
+            name="Carrinho"
+            component={CarrinhoStack}
+            options={{ headerShown: false }}
+
+          />
+
+        </Tab.Navigator>
       </NavigationContainer>
     </CartProvider>
   );
